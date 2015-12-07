@@ -5,26 +5,57 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className) {
-  var elements = this.document.children;
+  var elements = document.body;
   var result = [];
 
-  // BASE CASE //
+  // TEST FUNCTION //
 
   var checkClass = function(object) {
-    var name = object.className || '';
-    return name.search(className) > -1 ? true : false;
+    var list = object.classList;
+
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] === className) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
+  // RECURSIVE FUNCTION //
+
   var traverseDOM = function(array, x, y) {
-    if (y === array.length) {
-      return;
-    } else if (x === array[y].length) {
-      return traverseDOM(array, 0, y + 1);
+    console.log('array:', array);
+    // BASE CASE //
+
+    if (array.length === 0) {
+      return; // traverseDOM(array[x + 1], 0, 0)
     } else {
-      result.push();
-      return traverseDOM(array, x + 1, y);
+      for (var i = 0; i < array.length; i++) {
+        if (checkClass(array[i])) {
+          result.push(array[i]);
+        }
+      }
+
+      traverseDOM(array[x + 1].childNodes, 0, 0);
     }
+
+    // BASE CASE //
+  //   if (y > array.length) {
+  //     console.log("BASE CAAAAAAAAAAAAASE")
+  //     return;
+  //   } else if (x > array[y].length) {
+  //     return traverseDOM(array, 0, y + 1);
+  //   } else {
+  //     //console.log('checkClass(array[' + x + '][' + y + ']):', array[y]);
+  //     if (checkClass(array[y])) {
+  //       result.push(array[y]);
+  //     }
+  //     return traverseDOM(array, x + 1, y);
+  //   }
   };
+
+  traverseDOM(elements, 0, 0);
 
   return result;
 };
