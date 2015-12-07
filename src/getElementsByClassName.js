@@ -5,9 +5,15 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className) {
-  // your code here
   var elements = this.document.children;
   var result = [];
+
+  // BASE CASE //
+
+  var checkClass = function(object) {
+    var name = object.className || '';
+    return name.search(className) > -1 ? true : false;
+  }
 
   var traverseDOM = function(array, x, y) {
     if (y === array.length) {
@@ -19,4 +25,6 @@ var getElementsByClassName = function(className) {
       return traverseDOM(array, x + 1, y);
     }
   };
+
+  return result;
 };
