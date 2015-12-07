@@ -8,7 +8,7 @@ function getElementsByClassName (className) {
   var body = document.body;
   var result = [];
 
-  function ifClassNameIn(node) {
+  function pushIfclassNameIn(node) {
     var list = node.classList || '';
 
     // BASE CASE //
@@ -21,9 +21,10 @@ function getElementsByClassName (className) {
     // RECURSIVE CASE //
     for (var j = 0; j < node.childNodes.length; j++) {
       // Loop through all of current node's children
-      ifClassNameIn(node.childNodes[j]);
+      pushIfclassNameIn(node.childNodes[j]);
     }
   }
-  ifClassNameIn(body)
+
+  pushIfclassNameIn(body);
   return result;
 };
